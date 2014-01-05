@@ -2,7 +2,6 @@
 #define POOL_HPP
 
 #include <cstring>
-#include <bitset>
 #include <new>
 #include "sllist.hpp"
 
