@@ -32,10 +32,10 @@ int main() {
     printf("Pool test 1\n");
     for (int i = 0; i < 5; ++i) {
         Test *x = testPool.alloc();
-        //printf("%p\n", x);
+        printf("%p\n", x);
         testPool.free(x);
         x = testPool.alloc();
-        //printf("%p\n", x);
+        printf("%p\n", x);
     }
 
     testPool.reset();

@@ -44,7 +44,6 @@ private:
                 group->available--;
                 T * item = &group->items[i];
                 new (item) T();
-                printf("Alloc %p(%u) from %p at %d\n", item, item - group->items, group, i);
                 return item;
             }
         }
@@ -55,7 +54,6 @@ private:
         ptr->~T();
 
         int idx = ptr - group->items;
-        printf("Dealloc %p(%u) from %p at %d\n", ptr, ptr - group->items, group, idx);
         group->item_states[idx] = 0;
         group->available++;
     }
