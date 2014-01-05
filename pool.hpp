@@ -44,7 +44,7 @@ private:
                 group->available--;
                 T * item = &group->items[i];
                 new (item) T();
-                printf("Alloc %p(%d) from %p at %d\n", item, item - group->items, group, i);
+                printf("Alloc %p(%u) from %p at %d\n", item, item - group->items, group, i);
                 return item;
             }
         }
@@ -55,7 +55,7 @@ private:
         ptr->~T();
 
         int idx = ptr - group->items;
-        printf("Dealloc %p(%d) from %p at %d\n", ptr, ptr - group->items, group, idx);
+        printf("Dealloc %p(%u) from %p at %d\n", ptr, ptr - group->items, group, idx);
         group->item_states[idx] = 0;
         group->available++;
     }
@@ -67,7 +67,7 @@ public:
     }
 
     T * alloc() {
-        for(GroupList::Iterator i = groups.begin(); i != groups.end(); ++i) {
+        for (typename GroupList::Iterator i = groups.begin(); i != groups.end(); ++i) {
             if (i->available > 0) {
                 return allocFromGroup(i);
             }
@@ -78,7 +78,7 @@ public:
     }
 
     void free(T * ptr) {
-        for (GroupList::Iterator i = groups.begin(); i != groups.end(); ++i) {
+        for (typename GroupList::Iterator i = groups.begin(); i != groups.end(); ++i) {
             if (ptr >= i->items && ptr < i->items + sizeof(T) * size) {
                 freeFromGroup(i, ptr);
                 return;
@@ -87,7 +87,7 @@ public:
     }
 
     void reset() {
-        for(GroupList::Iterator i = groups.begin(); i != groups.end(); ++i) {
+        for(typename GroupList::Iterator i = groups.begin(); i != groups.end(); ++i) {
             freeGroup(i);
         }
         groups.clear();
