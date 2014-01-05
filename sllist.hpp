@@ -99,7 +99,9 @@ public:
         }
 
         Iterator & operator++() {
-            prev = cur;
+            if (cur) {
+                prev = cur;
+            }
             cur = next;
             if (cur) {
                 next = cur->next;
@@ -191,6 +193,8 @@ public:
         if (iter.cur == last) {
             last = iter.prev;
         }
+
+        iter.cur = NULL;
     }
 
     void clear() {
